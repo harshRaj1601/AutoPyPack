@@ -1,4 +1,4 @@
-from autopylot import AutoPylot, autopylot
+from .autopylot import AutoPylot, autopylot
 import sys
 import os
 import traceback
@@ -70,4 +70,5 @@ def _auto_scan():
         traceback.print_exc()
 
 # Run the auto-scan when imported
-_auto_scan() 
+if __name__ == "__main__":
+    _auto_scan() 

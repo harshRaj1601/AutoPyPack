@@ -16,13 +16,19 @@ def load_mappings():
 
 install_name_mapping = load_mappings()
 
-def install_package(package_name):
+def install_package(package_name, quiet=False):
     try:
-        print(f"[AutoPylot] Installing: {package_name} ...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])
+        if not quiet:
+            print(f"[AutoPylot] Installing: {package_name} ...")
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", package_name],
+            stdout=subprocess.DEVNULL if quiet else None,
+            stderr=subprocess.DEVNULL if quiet else None
+        )
         return True
     except subprocess.CalledProcessError:
-        print(f"[AutoPylot] ❌ Failed to install {package_name}. Please install manually.")
+        if not quiet:
+            print(f"[AutoPylot] ❌ Failed to install {package_name}. Please install manually.")
         return False
 
 def is_module_available(module_name):
@@ -61,9 +67,13 @@ def scan_imports(file_path):
     for n in ast.walk(node):
         if isinstance(n, ast.Import):
             for alias in n.names:
+                # Only add the module if it's actually imported
+                # This checks if the import statement exists in the file
                 imported_modules.add(alias.name.split('.')[0])
         elif isinstance(n, ast.ImportFrom):
             if n.module:
+                # Only add the module if it's actually imported from
+                # This checks if the import from statement exists in the file
                 imported_modules.add(n.module.split('.')[0])
 
     return imported_modules

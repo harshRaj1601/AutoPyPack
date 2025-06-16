@@ -24,7 +24,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'autopylot=autopylot.cli:main',
+            'autopylot=AutoPylot.autopylot.cli:main',
         ],
     },
 )
