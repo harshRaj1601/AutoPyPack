@@ -5,8 +5,8 @@ setup(
     version="1.0.0",
     description="Automatically installs missing Python libraries when running your code.",
     author="Harsh Jaiswal",
-    # author_email="your.email@example.com",
-    # url="https://github.com/yourusername/autopylot",  # Optional GitHub repo link
+    author_email="harshrajjaiswal16012003@gmail.com",
+    url="https://github.com/harshRaj1601/AutoPylot",  # Optional GitHub repo link
     packages=find_packages(),
     include_package_data=True,
     package_data={

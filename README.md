@@ -19,7 +19,7 @@ pip install autopylot
 Or install from source:
 
 ```bash
-git clone https://github.com/yourusername/autopylot.git
+git clone https://github.com/harshRaj1601/AutoPylot
 cd autopylot
 pip install -e .
 ```
