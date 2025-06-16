@@ -60,6 +60,7 @@
     "flask_whooshalchemy": "flask-whooshalchemy",
     "flask_whooshalchemyplus": "flask-whooshalchemyplus",
     
+    
     "mx": "mxnet",
     "mmcv": "mmcv-full",
     "cupy": "cupy-cuda11x",
