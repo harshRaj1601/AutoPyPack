@@ -1,0 +1,2 @@
+[console_scripts]
+autopylot = autopylot.cli:main
