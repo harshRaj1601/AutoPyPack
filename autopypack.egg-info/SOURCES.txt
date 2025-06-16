@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+setup.py
+AutoPyPack/AutoPyPack.py
+AutoPyPack/__init__.py
+AutoPyPack/autopypack/__init__.py
+AutoPyPack/autopypack/cli.py
+AutoPyPack/autopypack/core.py
+autopypack.egg-info/PKG-INFO
+autopypack.egg-info/SOURCES.txt
+autopypack.egg-info/dependency_links.txt
+autopypack.egg-info/entry_points.txt
+autopypack.egg-info/requires.txt
+autopypack.egg-info/top_level.txt

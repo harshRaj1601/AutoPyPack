@@ -1,0 +1,2 @@
+[console_scripts]
+autopypack = AutoPyPack.autopypack.cli:main

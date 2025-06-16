@@ -19,7 +19,7 @@ def collect_all_imports(directory, quiet=False):
     all_imports = set()
     
     if not quiet:
-        print(f"[AutoPylot] Scanning {len(python_files)} Python files for imports...")
+        print(f"[AutoPyPack] Scanning {len(python_files)} Python files for imports...")
     
     for file_path in python_files:
         try:
@@ -27,7 +27,7 @@ def collect_all_imports(directory, quiet=False):
             all_imports.update(imports)
         except Exception as e:
             if not quiet:
-                print(f"[AutoPylot] Error scanning {file_path}: {str(e)}")
+                print(f"[AutoPyPack] Error scanning {file_path}: {str(e)}")
     
     return all_imports
 
@@ -109,15 +109,15 @@ def install_missing_packages(directory, quiet=False):
     
     if not all_imports:
         if not quiet:
-            print("[AutoPylot] No imports found in the project.")
+            print("[AutoPyPack] No imports found in the project.")
         return
     
     if not quiet:
-        print(f"[AutoPylot] Found {len(all_imports)} unique imports.")
+        print(f"[AutoPyPack] Found {len(all_imports)} unique imports.")
     
     # Get project directory name to exclude internal modules
     project_name = os.path.basename(os.path.abspath(directory))
-    internal_modules = ['autopylot', 'AutoPylot', 'core', 'cli', project_name.lower()]
+    internal_modules = ['autopypack', 'AutoPyPack', 'core', 'cli', project_name.lower()]
     
     # Get the current module name to avoid considering it as a dependency
     current_module_name = os.path.basename(os.path.dirname(os.path.abspath(__file__))).lower()
@@ -133,7 +133,7 @@ def install_missing_packages(directory, quiet=False):
         # Skip if it's a local module in the project directory
         if is_local_module(module_name, directory):
             if not quiet:
-                print(f"[AutoPylot] Detected local module: {module_name}")
+                print(f"[AutoPyPack] Detected local module: {module_name}")
             continue
             
         # Skip if module is already available
@@ -143,17 +143,17 @@ def install_missing_packages(directory, quiet=False):
     
     if not missing_packages:
         if not quiet:
-            print("[AutoPylot] All packages are already installed! ✅")
+            print("[AutoPyPack] All packages are already installed! ✅")
         return
     
     if not quiet:
-        print(f"[AutoPylot] Found {len(missing_packages)} missing packages to install.")
+        print(f"[AutoPyPack] Found {len(missing_packages)} missing packages to install.")
     
     for module_name, package_name in missing_packages:
         install_package(package_name, quiet)
     
     if not quiet:
-        print("[AutoPylot] Package installation complete! ✅")
+        print("[AutoPyPack] Package installation complete! ✅")
 
 def list_project_modules(directory, quiet=False):
     """List all non-standard library modules used in the project."""
@@ -161,15 +161,15 @@ def list_project_modules(directory, quiet=False):
     all_imports = collect_all_imports(directory, quiet)
     
     if not all_imports and not quiet:
-        print("[AutoPylot] No imports found in the project.")
+        print("[AutoPyPack] No imports found in the project.")
         return []
     
     if not quiet:
-        print(f"[AutoPylot] Found {len(all_imports)} unique imports.")
+        print(f"[AutoPyPack] Found {len(all_imports)} unique imports.")
     
     # Get project directory name to exclude internal modules
     project_name = os.path.basename(os.path.abspath(directory))
-    internal_modules = ['autopylot', 'AutoPylot', 'core', 'cli', project_name.lower()]
+    internal_modules = ['autopypack', 'AutoPyPack', 'core', 'cli', project_name.lower()]
     
     # Get the current module name to avoid considering it as a dependency
     current_module_name = os.path.basename(os.path.dirname(os.path.abspath(__file__))).lower()
@@ -185,7 +185,7 @@ def list_project_modules(directory, quiet=False):
         # Skip if it's a local module in the project directory
         if is_local_module(module_name, directory):
             if not quiet:
-                print(f"[AutoPylot] Detected local module: {module_name}")
+                print(f"[AutoPyPack] Detected local module: {module_name}")
             continue
         
         package_name = mappings.get(module_name, module_name)
@@ -196,16 +196,16 @@ def list_project_modules(directory, quiet=False):
     
     if not quiet:
         if not external_packages:
-            print("[AutoPylot] No external packages found.")
+            print("[AutoPyPack] No external packages found.")
         else:
-            print(f"[AutoPylot] Found {len(external_packages)} external packages:")
+            print(f"[AutoPyPack] Found {len(external_packages)} external packages:")
             for package in external_packages:
                 print(package)
     
     return external_packages
 
 def main():
-    parser = argparse.ArgumentParser(description="AutoPylot - Automatically install missing Python packages")
+    parser = argparse.ArgumentParser(description="AutoPyPack - Automatically install missing Python packages")
     subparsers = parser.add_subparsers(dest="command")
     
     # Install command
@@ -224,12 +224,12 @@ def main():
     if args.command in ["install", "i"]:
         directory = os.path.abspath(args.dir)
         if not args.quiet:
-            print(f"[AutoPylot] Scanning directory: {directory}")
+            print(f"[AutoPyPack] Scanning directory: {directory}")
         install_missing_packages(directory, args.quiet)
     elif args.command in ["list", "l"]:
         directory = os.path.abspath(args.dir)
         if not args.quiet:
-            print(f"[AutoPylot] Scanning directory: {directory}")
+            print(f"[AutoPyPack] Scanning directory: {directory}")
         packages = list_project_modules(directory, args.quiet)
         if args.quiet and packages:
             # Print only package names, one per line (good for redirection to requirements.txt)
