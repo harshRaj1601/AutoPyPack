@@ -119,3 +119,5 @@ autopypack list --quiet > requirements.txt
 ## License
 
 MIT
+
+[![PyPI Downloads](https://static.pepy.tech/badge/autopypack)](https://pepy.tech/projects/autopypack)
